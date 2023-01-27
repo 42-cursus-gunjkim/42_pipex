@@ -6,11 +6,21 @@
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 14:11:08 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/01/25 15:51:32 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/01/27 17:39:30 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "pipe.h"
+
+void	child_pipe_init(t_pipe *p)
+{
+	p->cmd_argv = pipex_split(p->argv[p->index], ' ');
+	if (p->cmd_argv == NULL)
+		error_free_exit("CMD argument parsing fail", p);
+	p->cmd_with_path = cmd_with_path(p);
+	if (p->cmd_with_path == NULL)
+		error_free_exit("command not found", p);
+}
 
 void	child_do(t_pipe *p)
 {
@@ -34,6 +44,7 @@ void	child_do(t_pipe *p)
 	else
 		dup2(p->fd[1], 1);
 	close(p->fd[0]);
+	child_pipe_init(p);
 	if (execve(p->cmd_with_path, p->cmd_argv, p->envp) == -1)
 		error_free_exit(NULL, p);
 }

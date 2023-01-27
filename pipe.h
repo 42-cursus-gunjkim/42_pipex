@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:40:35 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/01/25 15:51:26 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/01/27 17:13:26 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ typedef struct s_pipe
 	int		max_i;
 	int		outfile_flag;
 	int		is_heredoc;
+	char	**argv;
 	char	**path;
 	char	**cmd_argv;
 	char	**envp;
