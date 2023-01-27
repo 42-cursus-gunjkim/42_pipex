@@ -26,10 +26,10 @@ make_bonus: $(BONUS_OBJS)
 clean:
 	rm -f $(OBJS) $(BONUS_OBJS)
 	$(MAKE) -C ./libft clean
-	rm -f make_mandatory make_bonus
 
 fclean: clean
 	$(MAKE) -C ./libft fclean
+	rm -f make_mandatory make_bonus
 	rm -f $(NAME)
 
 re: fclean all

@@ -32,11 +32,11 @@ make_bonus: $(OBJS) $(BONUS_OBJS)
 
 clean:
 	rm -f $(OBJS) $(BONUS_OBJS)
-	rm -f make_mandatory make_bonus
 
 fclean: clean
+	rm -f make_mandatory make_bonus
 	rm -f $(NAME)
-
+	
 re: fclean all
 
 .phony : all clean fclean re bonus
