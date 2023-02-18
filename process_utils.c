@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/13 14:11:08 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/02/18 18:04:07 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/02/18 19:06:12 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,13 @@ void	child_pipe_init(t_pipe *p)
 {
 	p->path = get_path(p->envp);
 	if (p->path == NULL)
-		error_free_exit("PATH parsing fail", p);
+		perror("PATH parsing fail");
 	p->cmd_argv = pipex_split(p->argv[p->index], ' ');
 	if (p->cmd_argv == NULL)
-		error_free_exit("CMD argument parsing fail", p);
+		perror("cmd argument parsing fail");
 	p->cmd_with_path = cmd_with_path(p);
 	if (p->cmd_with_path == NULL)
-		error_free_exit("command not found", p);
+		perror("command not found");
 }
 
 void	child_do(t_pipe *p)

@@ -8,17 +8,17 @@ OBJS = $(SRCS:.c=.o)
 BONUS_OBJS = $(BONUS_SRCS:.c=.o)
 
 all: make_mandatory
-bonus: make_bonus
+#bonus: make_bonus
 
 make_mandatory: $(OBJS)
 	$(MAKE) -C ./libft
 	$(CC) $(CFLAGS) -o $(NAME) $(OBJS) -L./libft -lft
 	touch $@
 
-make_bonus: $(BONUS_OBJS)
-	$(MAKE) -C ./libft
-	$(CC) $(CFLAGS) -o $(NAME) $(BONUS_OBJS) -L./libft -lft
-	touch $@
+#make_bonus: $(BONUS_OBJS)
+#	$(MAKE) -C ./libft
+#	$(CC) $(CFLAGS) -o $(NAME) $(BONUS_OBJS) -L./libft -lft
+#	touch $@
 
 %.o: %.c
 	$(CC) $(CFLAGS) -c $< -o $@
