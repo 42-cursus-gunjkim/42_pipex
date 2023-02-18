@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:10:45 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/01/27 20:25:22 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/02/18 18:27:55 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,7 @@ void	pipex_init(t_pipe *pipex, int argc, char *argv[], char *envp[])
 {
 	pipex->envp = envp;
 	pipex->max_i = argc;
-	pipex->path = get_path(envp);
-	if (pipex->path == NULL)
-		error_and_exit("PATH parsing fail\n");
+	pipex->path = NULL;
 	pipex->cmd_with_path = NULL;
 	pipex->cmd_argv = NULL;
 	pipex->argv = argv;
@@ -36,14 +34,13 @@ int	main(int argc, char *argv[], char *envp[])
 	if (argc <= 4)
 		error_and_exit("Too few arguments");
 	pipex_init(&pipex, argc, argv, envp);
-	if (ft_strncmp("here_doc", argv[1], ft_strlen(argv[1])) == 0)
+	if (strequal(argv[1], "here_doc", 0))
 		here_doc(argv, &pipex);
 	while (pipex.index + 1 != argc)
 	{
 		make_child(&pipex);
 		pipex.index++;
 	}
-	free_double_arr(pipex.path);
 	if (pipex.is_heredoc && !access(pipex.infile, F_OK))
 		unlink(pipex.infile);
 	return (0);

@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:23:23 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/01/25 15:52:40 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/02/18 18:04:26 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,7 @@ void	free_pipex(t_pipe *pipex)
 {
 	free_double_arr(pipex->path);
 	free_double_arr(pipex->cmd_argv);
+	free_double_arr(pipex->path);
 	free(pipex->cmd_with_path);
 }
 

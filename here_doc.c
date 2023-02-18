@@ -6,40 +6,53 @@
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:45:07 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/01/27 17:59:22 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/02/18 18:27:43 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "pipe_bonus.h"
+#include "pipe.h"
 
-int	getline_and_isequal(char **line, char *limiter, t_pipe *pipex)
+void	here_doc_init(t_pipe *pipex)
 {
-	int	line_len;
-	int	lim_len;
+	pipex->index = 3;
+	pipex->infile = "here_tmp";
+	pipex->outfile_flag = O_CREAT | O_WRONLY | O_APPEND;
+	pipex->is_heredoc = 1;
+}
 
-	write(1, "here_doc > ", 10);
-	*line = get_next_line(0);
-	if (*line == NULL)
-		error_free_exit(NULL, pipex);
-	line_len = ft_strlen(*line) - 1;
-	lim_len = ft_strlen(limiter);
-	if (!ft_strncmp(*line, limiter, line_len) && line_len == lim_len)
+int	strequal(char *str1, char *str2, int flag)
+{
+	size_t	str1_len;
+	size_t	str2_len;
+
+	str1_len = ft_strlen(str1);
+	str2_len = ft_strlen(str2);
+	if (flag == 1)
+		str2_len = str2_len - 1;
+	if (!ft_strncmp(str1, str2, str1_len) && (str1_len == str2_len))
 		return (1);
 	else
 		return (0);
+}
+
+char	*getline_stdin(t_pipe *pipex)
+{
+	char	*line;
+
+	write(1, "here_doc > ", 10);
+	line = get_next_line(0);
+	if (line == NULL)
+		error_free_exit(NULL, pipex);
+	return (line);
 }
 
 void	here_doc(char *argv[], t_pipe *pipex)
 {
 	char	*line;
 	int		tmp_fd;
-	int		is_equal;
 
 	line = NULL;
-	pipex->index = 3;
-	pipex->infile = "here_tmp";
-	pipex->outfile_flag = O_CREAT | O_WRONLY | O_APPEND;
-	pipex->is_heredoc = 1;
+	here_doc_init(pipex);
 	tmp_fd = open(pipex->infile, O_CREAT | O_EXCL | O_WRONLY, 0664);
 	if (tmp_fd < 0)
 	{
@@ -48,8 +61,8 @@ void	here_doc(char *argv[], t_pipe *pipex)
 	}
 	while (1)
 	{
-		is_equal = getline_and_isequal(&line, argv[2], pipex);
-		if (is_equal)
+		line = getline_stdin(pipex);
+		if (strequal(argv[2], line, 1))
 			break ;
 		ft_putstr_fd(line, tmp_fd);
 		free(line);

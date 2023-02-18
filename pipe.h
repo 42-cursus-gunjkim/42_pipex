@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:40:35 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/01/27 17:13:26 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/02/18 18:28:08 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,5 +45,6 @@ void	free_pipex(t_pipe *pipex);
 char	**pipex_split(char const *s, char c);
 void	free_double_arr(char **arr);
 void	here_doc(char *argv[], t_pipe *pipex);
+int		strequal(char *str1, char *str2, int flag);
 
 #endif
