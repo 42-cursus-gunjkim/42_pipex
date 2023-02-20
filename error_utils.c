@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/12 16:23:23 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/02/18 18:04:26 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/02/20 21:27:07 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,23 +29,22 @@ void	free_double_arr(char **arr)
 
 void	free_pipex(t_pipe *pipex)
 {
-	free_double_arr(pipex->path);
 	free_double_arr(pipex->cmd_argv);
 	free_double_arr(pipex->path);
 	free(pipex->cmd_with_path);
 }
 
-void	error_and_exit(const char *error_msg)
+void	error_and_exit(const char *error_msg, int ecode)
 {
 	perror(error_msg);
-	exit(0);
+	exit(ecode);
 }
 
-void	error_free_exit(const char *error_msg, t_pipe *pipex)
+void	error_free_exit(const char *error_msg, t_pipe *pipex, int ecode)
 {
 	perror(error_msg);
 	free_pipex(pipex);
 	if (pipex->is_heredoc && !access(pipex->infile, F_OK))
 		unlink(pipex->infile);
-	exit(0);
+	exit(ecode);
 }

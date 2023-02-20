@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/09 16:10:45 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/02/18 18:27:55 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/02/20 21:55:36 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,12 @@ void	pipex_init(t_pipe *pipex, int argc, char *argv[], char *envp[])
 int	main(int argc, char *argv[], char *envp[])
 {
 	t_pipe	pipex;
+	int		number_of_cmd;
 
 	if (argc <= 4)
-		error_and_exit("Too few arguments");
+		error_and_exit("Too few arguments", 0);
 	pipex_init(&pipex, argc, argv, envp);
+	number_of_cmd = pipex.max_i - pipex.index - 1;
 	if (strequal(argv[1], "here_doc", 0))
 		here_doc(argv, &pipex);
 	while (pipex.index + 1 != argc)
@@ -41,6 +43,8 @@ int	main(int argc, char *argv[], char *envp[])
 		make_child(&pipex);
 		pipex.index++;
 	}
+	close(pipex.fd[0]);
+	wait_all(number_of_cmd);
 	if (pipex.is_heredoc && !access(pipex.infile, F_OK))
 		unlink(pipex.infile);
 	return (0);

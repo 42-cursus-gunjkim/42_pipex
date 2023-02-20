@@ -6,7 +6,7 @@
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/25 11:45:07 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/02/18 18:27:43 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/02/20 21:27:34 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ char	*getline_stdin(t_pipe *pipex)
 	write(1, "here_doc > ", 10);
 	line = get_next_line(0);
 	if (line == NULL)
-		error_free_exit(NULL, pipex);
+		error_free_exit(NULL, pipex, 0);
 	return (line);
 }
 
@@ -57,7 +57,7 @@ void	here_doc(char *argv[], t_pipe *pipex)
 	if (tmp_fd < 0)
 	{
 		free_pipex(pipex);
-		error_and_exit(NULL);
+		error_and_exit(NULL, 0);
 	}
 	while (1)
 	{
