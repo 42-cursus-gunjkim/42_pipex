@@ -1,17 +1,17 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   pipe.h                                             :+:      :+:    :+:   */
+/*   pipe_bonus.h                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: gunjkim <gunjkim@student.42.fr>            +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/01/11 16:40:35 by gunjkim           #+#    #+#             */
-/*   Updated: 2023/02/21 14:15:39 by gunjkim          ###   ########.fr       */
+/*   Updated: 2023/02/27 20:04:44 by gunjkim          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#ifndef PIPE_H
-# define PIPE_H
+#ifndef PIPE_BONUS_H
+# define PIPE_BONUS_H
 
 # include "./libft/libft.h"
 # include <unistd.h>
